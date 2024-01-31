@@ -10,11 +10,11 @@ import { TimelineOptions } from "vis-timeline";
 
 const Home: React.FC = () => {
   const [startEnd] = React.useState([
-    moment()
-      .subtract(1, "d")
-      .toDate(),
-    moment().toDate()
+    moment().add(1,'hour').toDate(),
+    moment().add(3,'hour').toDate()
   ]);
+
+
 
   const options: TimelineOptions = {
     start: startEnd[0],
@@ -22,15 +22,22 @@ const Home: React.FC = () => {
     min: startEnd[0],
     max: startEnd[1],
     horizontalScroll: true,
+    stack: true,
     zoomKey: "ctrlKey",
     orientation: "both",
-    zoomMin: 1000 * 60 * 60 * 240
+    zoomMin: 1000000,
+    format: {
+      minorLabels: {
+        minute: 'h:mma',
+        hour: 'ha'
+      }
+    }
   };
 
   const groups = [
     {
       id: 1,
-      content: "Group1"
+      content: '<div class="user-card">Group1</div>',
     },
     {
       id: 2,
