@@ -3,6 +3,12 @@ import * as React from 'react';
 import * as vistimeline from 'vis-timeline/esnext';
 import * as visdata from 'vis-data/esnext';
 import 'vis-timeline/dist/vis-timeline-graph2d.min.css';
+import dynamic from 'next/dynamic';
+
+const VisTimeline = dynamic(
+  () => import('vis-timeline/esnext').then((pkg) => pkg.Timeline),
+  { ssr: false }
+);
 
 
 type TLProps = {
