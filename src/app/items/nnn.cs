@@ -1,6 +1,6 @@
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"),
-        jwtOptions =>
-        {
-            jwtOptions.TokenValidationParameters.ValidAudience = $"api://{builder.Configuration["AzureAd:ClientId"]}";
-        });
+    .AddMicrosoftIdentityWebApi(options =>
+    {
+        builder.Configuration.Bind("AzureAd", options);
+        options.TokenValidationParameters.ValidAudience = $"api://{builder.Configuration["AzureAd:ClientId"]}";
+    });
