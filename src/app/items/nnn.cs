@@ -3,8 +3,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .EnableTokenAcquisitionToCallDownstreamApi()
     .AddInMemoryTokenCaches();
 
-// Override Token Validation Parameters
+// Explicitly configure token validation
 builder.Services.Configure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, options =>
 {
     options.TokenValidationParameters.ValidAudience = $"api://{builder.Configuration["AzureAd:ClientId"]}";
+    options.TokenValidationParameters.ValidateIssuerSigningKey = true;  // Ensure key validation
+    options.TokenValidationParameters.RequireSignedTokens = true;       // Require signed tokens
 });
